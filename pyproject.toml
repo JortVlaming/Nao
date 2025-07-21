@@ -1,0 +1,18 @@
+[project]
+name = "Nao"
+version = "0.0.1"
+description = "OOP Module for the Nao robot using qi for communication"
+license = { text = "Apache-2.0" }
+authors = [
+  { name="Jort Vlaming", email="jort.vlaming@outlook.com" }
+]
+dependencies = [
+  "qi"
+]
+
+[project.urls]
+Homepage = "https://github.com/JortVlaming/Nao"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
