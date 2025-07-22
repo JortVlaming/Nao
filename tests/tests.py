@@ -8,28 +8,42 @@ import inspect
 import pkgutil
 import traceback
 
+from typing import Callable
+
 import Nao
 from Nao import Robot
+import inspect
+from typing import Callable, get_origin
 
 robot = Robot("127.0.0.1", 9559)
+
+def dummy_callback(*args, **kwargs):
+    print("Dummy callback called with: " + str(args) + " and " + str(kwargs))
+
 
 def dummy_arg_for(param):
     # Simple logic to generate dummy values based on param name or annotation
     name = param.name.lower()
+    annotation = param.annotation
+    origin = get_origin(annotation)
+
     if param.default is not inspect.Parameter.empty:
         return param.default
     if "name" in name or "path" in name or "behavior" in name:
         return "test"
     if "id" in name:
         return 0
-    if "list" in name or param.annotation in [list, tuple]:
+    if "list" in name or annotation in [list, tuple]:
         return []
-    if "bool" in name or param.annotation is bool:
+    if "bool" in name or annotation is bool:
         return False
-    if param.annotation is int:
+    if annotation is int:
         return 0
-    if param.annotation is float:
+    if annotation is float:
         return 0.0
+    if origin is Callable:
+        # Return a dummy callable that accepts any args and does nothing
+        return dummy_callback
     return "test"  # fallback
 
 
@@ -38,6 +52,7 @@ IGNORE_NONETYPE = True
 PRINT_NONETYPE = False
 
 def run_test(proxy):
+    proxy.debug_mode = True
     proxyName = type(proxy).__name__
     print(f"[super] Executing {proxyName} tests")
 

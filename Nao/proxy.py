@@ -13,6 +13,8 @@ class Proxy:
 
         self._memory_subscriptions = {}  # event_name -> (subscriber_name, callback_name)
 
+        self.debug_mode = False
+
     def _on(self, name: str, callback: Callable[..., None], source: Literal["event", "signal"] = "signal"):
         """
         Register a callback either to a proxy signal or an ALMemory event.
@@ -22,6 +24,8 @@ class Proxy:
         :param source: "signal" to connect via proxy.signal(name),
                        "event" to connect via ALMemory.subscribeToEvent(name).
         """
+        if self.debug_mode:
+            print("Callback registered for " + name + " sourced from " + source + "s")
         if source == "event":
             if name not in self._callbacks:
                 self._callbacks[name] = []
