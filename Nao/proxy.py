@@ -83,3 +83,9 @@ class Proxy:
         self._memory_subscriptions.clear()
 
         self._callbacks.clear()
+
+    def _alvalues_to_list(self, alvalue):
+        if hasattr(alvalue, "__iter__") and not isinstance(alvalue, (str, bytes)):
+            return list(alvalue)
+        else:
+            return [alvalue]
