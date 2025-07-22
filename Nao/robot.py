@@ -8,8 +8,15 @@ class Robot:
 
     def _connect(self):
         session = qi.Session()
-        session.connect(f"tcp://{self.ip}:{self.port}")
+        try:
+            session.connect(f"tcp://{self.ip}:{self.port}")
+        except RuntimeError as rte:
+            if "The call request could not be handled" in str(rte):
+                return None
+            raise rte
         return session
 
     def get_service(self, name: str):
+        if self.session is None:
+            return None
         return self.session.service(name)

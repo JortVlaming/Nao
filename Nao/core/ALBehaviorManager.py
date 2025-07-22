@@ -5,8 +5,8 @@ from ..robot import Robot
 
 
 class ALBehaviorManager(Proxy):
-    def __init__(self, robot: Robot, name: str):
-        super().__init__(robot, name)
+    def __init__(self, robot: Robot):
+        super().__init__(robot, "ALBehaviorManager")
 
     """
     Methods
