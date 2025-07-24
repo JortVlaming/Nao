@@ -1,3 +1,9 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "pybind11", "cmake"]
 build-backend = "setuptools.build_meta"
+
+[tool.scikit-build]
+editable.add_cmake_args = ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=nao"]
+
+[tool.scikit-build]
+cmake.parallel = true
