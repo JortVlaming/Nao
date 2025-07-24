@@ -18,5 +18,6 @@ target_include_directories(_nao_bindings PRIVATE
 target_link_libraries(_nao_bindings PRIVATE qi)
 
 install(TARGETS _nao_bindings
-        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/nao)
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/nao
+)
 
