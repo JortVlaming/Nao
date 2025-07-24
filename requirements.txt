@@ -1,0 +1,1 @@
+-e git+ssh://git@github.com/JortVlaming/Nao.git@bae74f8c5db85744b08fe4e57553a39015935aaf#egg=nao
