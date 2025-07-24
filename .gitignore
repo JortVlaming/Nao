@@ -1,0 +1,38 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+
+# === Virtualenv ===
+.venv/
+env/
+venv/
+
+# === CMake build ===
+build/
+cmake-build-*/
+
+# === CLion / JetBrains IDEs ===
+.idea/
+*.iml
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Compiled C++ ===
+*.o
+*.obj
+*.so
+*.pyd
+*.dll
+*.exe
+
+# === Wheels / Packages ===
+dist/
+*.whl
