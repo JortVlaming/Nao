@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(BUILD_TESTING OFF CACHE BOOL "Disable testing" FORCE)
 
 add_subdirectory(extern/pybind11)
-add_subdirectory(extern/libqi)
+
+find_package(naoqi-sdk REQUIRED)
 
 pybind11_add_module(_nao_bindings src/main.cpp src/robot.cpp)
 
