@@ -8,31 +8,42 @@ set(BUILD_TESTING OFF CACHE BOOL "Disable testing" FORCE)
 
 add_subdirectory(extern/pybind11)
 
-if(!QI_SDK_PATH)
-if(WIN32)
-    set(QI_SDK_PATH "C:/Program Files/naoqi-sdk")
-    message(NOTICE "Platform identified as windows")
-elseif(APPLE)
-    set(QI_SDK_PATH "/usr/local/naoqi-sdk")
-    message(NOTICE "Platform identified as macos")
-elseif(UNIX)
-    set(QI_SDK_PATH "/opt/naoqi-sdk")
-    message(NOTICE "Platform identified as linux")
-else()
-    message(FATAL_ERROR "Unsupported platform (linux, windows, apple")
-endif()
+if(NOT QI_SDK_PATH)
+    message(NOTICE "attempting to identify qi directory")
+    if(WIN32)
+        set(QI_SDK_PATH "C:/Program Files/naoqi-sdk")
+        message(NOTICE "Platform identified as windows")
+    elseif(APPLE)
+        set(QI_SDK_PATH "/usr/local/naoqi-sdk")
+        message(NOTICE "Platform identified as macos")
+    elseif(UNIX)
+        set(QI_SDK_PATH "/opt/naoqi-sdk")
+        message(NOTICE "Platform identified as linux")
+    else()
+        message(FATAL_ERROR "Unsupported platform (linux, windows, apple")
+    endif()
 endif()
 
-include_directories("${QI_SDK}/include")
-link_directories("${QI_SDK}/lib")
+message(NOTICE "qi directory identified as ${QI_SDK_PATH}")
+
+include_directories("${QI_SDK_PATH}/include")
+link_directories("${QI_SDK_PATH}/lib")
 
 pybind11_add_module(_nao_bindings src/main.cpp src/robot.cpp)
+target_compile_definitions(_nao_bindings PRIVATE _GLIBCXX_USE_CXX11_ABI=0)
+
+target_link_libraries(_nao_bindings
+        PRIVATE
+        qi
+)
+
 
 target_include_directories(_nao_bindings PRIVATE
         extern/libqi
 )
 
-target_link_libraries(_nao_bindings PRIVATE qi)
+target_include_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/include")
+target_link_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/lib")
 
 install(TARGETS _nao_bindings
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/nao
