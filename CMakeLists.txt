@@ -23,6 +23,9 @@ else()
 endif()
 endif()
 
+include_directories("${QI_SDK}/include")
+link_directories("${QI_SDK}/lib")
+
 pybind11_add_module(_nao_bindings src/main.cpp src/robot.cpp)
 
 target_include_directories(_nao_bindings PRIVATE
