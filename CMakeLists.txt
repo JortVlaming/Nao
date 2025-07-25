@@ -9,7 +9,7 @@ set(BUILD_TESTING OFF CACHE BOOL "Disable testing" FORCE)
 add_subdirectory(extern/pybind11)
 add_subdirectory(extern/libqi)
 
-pybind11_add_module(_nao_bindings src/main.cpp)
+pybind11_add_module(_nao_bindings src/main.cpp src/robot.cpp)
 
 target_include_directories(_nao_bindings PRIVATE
         extern/libqi
