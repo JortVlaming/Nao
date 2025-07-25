@@ -45,6 +45,9 @@ target_include_directories(_nao_bindings PRIVATE
 target_include_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/include")
 target_link_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/lib")
 
+message(NOTICE "libdir: ${CMAKE_INSTALL_LIBDIR}")
+message(NOTICE "sdkdir: ${CMAKE_INSTALL_LIBDIR}/nao")
+
 install(TARGETS _nao_bindings
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/nao
 )
