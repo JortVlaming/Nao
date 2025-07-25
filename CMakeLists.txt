@@ -45,10 +45,17 @@ target_include_directories(_nao_bindings PRIVATE
 target_include_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/include")
 target_link_directories(_nao_bindings PRIVATE "${QI_SDK_PATH}/lib")
 
-message(NOTICE "libdir: ${CMAKE_INSTALL_LIBDIR}")
-message(NOTICE "sdkdir: ${CMAKE_INSTALL_LIBDIR}/nao")
-
-install(TARGETS _nao_bindings
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/nao
+execute_process(
+        COMMAND "${PYTHON_EXECUTABLE}" -c "import sysconfig; print(sysconfig.get_paths()['purelib'])"
+        OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
+        OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+message(NOTICE "site-packages: ${PYTHON_SITE_PACKAGES}")
+message(NOTICE "so place: ${PYTHON_SITE_PACKAGES}/nao")
+
+install(TARGETS _nao_bindings
+        LIBRARY DESTINATION "${PYTHON_SITE_PACKAGES}/nao"      # for Unix-like shared libs
+        ARCHIVE DESTINATION "${PYTHON_SITE_PACKAGES}/nao"      # for static libs (not used here)
+        RUNTIME DESTINATION "${PYTHON_SITE_PACKAGES}/nao"      # for Windows DLLs
+)
