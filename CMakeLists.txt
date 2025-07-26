@@ -29,7 +29,9 @@ message(NOTICE "qi directory identified as ${QI_SDK_PATH}")
 include_directories("${QI_SDK_PATH}/include")
 link_directories("${QI_SDK_PATH}/lib")
 
-pybind11_add_module(_nao_bindings src/main.cpp src/robot.cpp)
+file(GLOB_RECURSE NAO_SRC CONFIGURE_DEPENDS src/*.cpp)
+
+pybind11_add_module(_nao_bindings ${NAO_SRC})
 target_compile_definitions(_nao_bindings PRIVATE _GLIBCXX_USE_CXX11_ABI=0)
 
 target_link_libraries(_nao_bindings
