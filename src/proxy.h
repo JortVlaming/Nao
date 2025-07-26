@@ -14,9 +14,8 @@ public:
 	Proxy(Robot* robot, const std::string& name) : robot(robot), name(name) {};
 	~Proxy();
 
-	void on(const std::string& name,
-			std::function<void(std::vector<std::any>)> callback,
-			const std::string& source = "signal");
+	template<typename Callable>
+	void on(const std::string& name, Callable&& callback, const std::string& source = "signal");
 
 	void disconnect_all();
 

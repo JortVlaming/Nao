@@ -6,9 +6,8 @@
 #include <any>
 #include <almemory/constants.hpp>
 
-void Proxy::on(const std::string& name,
-               std::function<void(std::vector<std::any>)> callback,
-               const std::string& source)
+template<typename Callable>
+void Proxy::on(const std::string& name, Callable&& callback, const std::string& source)
 {
     if (debug_mode) {
         std::cout << "Callback registered for " << name << " sourced from " << source << "s\n";
