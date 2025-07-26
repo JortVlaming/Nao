@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 
+#include "proxy.h"
 #include "robot.h"
 
 namespace py = pybind11;
@@ -22,4 +23,9 @@ PYBIND11_MODULE(_nao_bindings, m) {
     py::class_<Robot>(m, "Robot")
         .def(py::init<const std::string&, int>(), py::arg("ip"), py::arg("port") = 9559)
         .def("get_service", &Robot::getService);
+
+    py::class_<Proxy>(m, "Proxy")
+        .def(py::init<Robot*, const std::string&>(), py::arg("robot"), py::arg("name"))
+        .def("on", &Proxy::on)
+        .def("disconnect_all", &Proxy::disconnect_all);
 }
