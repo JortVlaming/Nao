@@ -15,6 +15,7 @@ public:
 	~Proxy();
 private:
 	Robot* robot;
+protected:
 	std::string name;
 	qi::AnyObject proxy;
 };
