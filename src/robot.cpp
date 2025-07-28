@@ -22,5 +22,5 @@ qi::AnyObject Robot::getService(const std::string& name) const {
 	if (!session_ || !session_->isConnected()) {
 		return {};
 	}
-	return session_->service(name).value();
+	return session_->service(name);
 }
