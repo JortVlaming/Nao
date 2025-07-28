@@ -25,7 +25,5 @@ PYBIND11_MODULE(_nao_bindings, m) {
         .def("get_service", &Robot::getService);
 
     py::class_<Proxy>(m, "Proxy")
-        .def(py::init<Robot*, const std::string&>(), py::arg("robot"), py::arg("name"))
-        .def("on", &Proxy::on)
-        .def("disconnect_all", &Proxy::disconnect_all);
+        .def(py::init<Robot*, const std::string&>(), py::arg("robot"), py::arg("name"));
 }
