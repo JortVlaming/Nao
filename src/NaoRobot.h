@@ -12,9 +12,13 @@
 
 class NaoRobot {
 public:
-	NaoRobot(const std::string& ip, int port = 9559) {
-		session = qi::makeSession();
-		session->connect("tcp://" + ip + ":" + std::to_string(port));
+	NaoRobot(const std::string& ip, int port = 9559, bool dummy = false) {
+		if (!dummy) {
+			session = qi::makeSession();
+			session->connect("tcp://" + ip + ":" + std::to_string(port));
+		} else {
+			session = nullptr;
+		}
 
 		speech = std::make_shared<Speech>(session);
 	}
