@@ -3,6 +3,7 @@
 //
 
 #include "Speech.h"
+#include "macros.h"
 
 Speech::Speech(const qi::SessionPtr &session) {
 	if (!session) return;
@@ -10,16 +11,13 @@ Speech::Speech(const qi::SessionPtr &session) {
 }
 
 void Speech::say(const std::string &text) const {
-	if (!this->proxy) return;
-	this->proxy.call<void>("say", text);
+	PROXY_CALL_VOID(proxy, "say", text);
 }
 
 void Speech::setVolume(float volume) const {
-	if (!this->proxy) return;
-	this->proxy.call<void>("setVolume", volume);
+	PROXY_CALL_VOID(proxy, "setVolume", volume);
 }
 
 float Speech::getVolume() const {
-	if (!this->proxy) return -1.0f;
-	return this->proxy.call<float>("getVolume");
+	return PROXY_CALL(proxy, "getVolume", -1.0f);
 }
